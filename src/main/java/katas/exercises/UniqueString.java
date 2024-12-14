@@ -10,7 +10,21 @@ public class UniqueString {
      * @param str the input string
      * @return true if all characters are unique, false otherwise
      */
-    public static boolean isUnique(String str) {
+    public static boolean isUnique(String str)
+    {
+        int[] letters=new int[26];
+        int index;
+        str=str.toLowerCase();
+        for (char letter : str.toCharArray())
+        {
+            index=(int)letter-(int)'a';
+            if(letters[index]!=1)
+            {
+                letters[index]=1;
+            }
+            else
+                return false;
+        }
         return true;
     }
 
