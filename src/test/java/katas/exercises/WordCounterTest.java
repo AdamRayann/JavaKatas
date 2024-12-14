@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CountWordsTest {
+public class WordCounterTest {
 
     WordCounter wordCounter = new WordCounter(); // Instance no longer static
 
