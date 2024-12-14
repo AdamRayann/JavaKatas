@@ -8,8 +8,17 @@ public class StringDigitSum {
      * @param input the string containing digits and other characters
      * @return the sum of all digits in the string
      */
-    public static int sumOfDigits(String input) {
-        return 0;
+    public static int sumOfDigits(String input)
+    {
+        int sum=0;
+        for(char c : input.toCharArray())
+        {
+            if ('0'<(int)c && '9'>=(int)c)
+            {
+                sum+=(int)c-'0';
+            }
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
