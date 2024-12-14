@@ -9,6 +9,14 @@ public class ArrayReducer {
      * @param numbers the array of integers to modify
      */
     public static void reduceArray(int[] numbers) {
+        int i;
+        for(i=numbers.length-1; i>=0;i--)
+        {
+            if(i!=0)
+            {
+                numbers[i]=numbers[i-1] - numbers[i];
+            }
+        }
 
     }
 
