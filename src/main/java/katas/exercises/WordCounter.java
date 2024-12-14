@@ -10,7 +10,7 @@ public class WordCounter {
      */
     public static int countWords(String sentence)
     {
-        if(sentence.isEmpty())
+        if(sentence==null || sentence.isEmpty()  )
             return 0;
         int cnt=1;
         for (char c : sentence.toCharArray())
