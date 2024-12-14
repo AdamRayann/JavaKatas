@@ -11,7 +11,7 @@ public class CountWordsTest {
     WordCounter wordCounter = new WordCounter(); // Instance no longer static
 
     @Nested
-    @DisplayName("Tests for valid input")
+    @DisplayName("Tests for Invalid input")
     class InvalidInput {
 
         @Test
@@ -49,4 +49,5 @@ public class CountWordsTest {
             assertEquals(2, wordCounter.countWords("hello world!"));
         }
     }
+
 }
