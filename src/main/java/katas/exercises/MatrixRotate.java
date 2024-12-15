@@ -8,21 +8,24 @@ public class MatrixRotate {
      * @param matrix the 2D square matrix to rotate
      */
     public static void rotateMatrix(int[][] matrix) {
-        int len=matrix.length;
-        int[][] result = new int[len][len] ;
-        int cnt=0,i,j;
-        for(int []row : matrix)
-        {
-            for(int num : row)
-            {
-                i=(cnt%len);
-                j=(cnt/len)%(len);
-                result[j][i]=matrix[i][(j+len)%len];
+        int len = matrix.length;
+        int[][] result = new int[len][len];
+        int cnt = 0, i, j;
+        for (int[] row : matrix) {
+            for (int num : row) {
+                i = (cnt % len);
+                j = (len - 1) - (cnt / len) % (len);
+
+                result[i][j] = num;
                 cnt++;
             }
         }
-        printMatrix(result);
+        for (i = 0; i < len; i++) {
+            for (j = 0; j < len; j++) {
+                matrix[i][j] = result[i][j];
+            }
 
+        }
     }
 
     public static void main(String[] args) {
