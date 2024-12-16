@@ -12,9 +12,6 @@ public class ArrayReducerTest {
     ArrayReducer arrayReducer = new ArrayReducer();
     int[] sampleArray = {10, 15, 7, 20, 25};
 
-    @Nested
-    @DisplayName("Tests for valid input")
-    class ValidInput {
 
         @Test
         @DisplayName("valid string")
@@ -27,4 +24,4 @@ public class ArrayReducerTest {
 
 
     }
-}
+
