@@ -2,7 +2,7 @@ package katas.exercises;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ public class ArrayReducerTest {
 
         @Test
         @DisplayName("valid string")
-        void test1() {
+        public void test1() {
 
 
             assertEquals(true, true);
