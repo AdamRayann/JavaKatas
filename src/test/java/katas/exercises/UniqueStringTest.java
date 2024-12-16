@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UniqueStringTest {
     UniqueString uniqueString = new UniqueString(); // Instance no longer static
 
-
+//tested
     @Nested
     @DisplayName("Tests for valid input")
     class ValidInput {
