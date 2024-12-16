@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class WordCounterTest {
 
     WordCounter wordCounter = new WordCounter(); // Instance no longer static
-
+//tested
     @Nested
     @DisplayName("Tests for Invalid input")
     class InvalidInput {
