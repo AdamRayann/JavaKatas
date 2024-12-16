@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+//test
 public class ArrayReducerTest {
     ArrayReducer arrayReducer = new ArrayReducer();
     int[] sampleArray = {10, 15, 7, 20, 25};
