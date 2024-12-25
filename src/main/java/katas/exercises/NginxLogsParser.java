@@ -33,6 +33,31 @@ public class NginxLogsParser {
      */
     public static Map<String, String> parseLog(String log) {
         Map<String, String> parsedData = new HashMap<>();
+        Pattern pattern = Pattern.compile("^\\s*(\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}) - - \\[(.+?)\\] \"([A-Z]+) (.+?) (HTTP\\/[0-9\\.]+)\" (\\d{3}) (\\d+) \"(.*?)\" \"(.*?)\"$");
+        Matcher matcher = pattern.matcher(log);
+        if(matcher.matches())
+        {
+            String client_ip = matcher.group(1);
+            String date = matcher.group(2);
+            String http_method = matcher.group(3);
+            String path = matcher.group(4);
+            String http_version = matcher.group(5);
+            String status = matcher.group(6);
+            String response_bytes = matcher.group(7);
+            String user_agent = matcher.group(9);
+
+            parsedData.put("client_ip",client_ip);
+            parsedData.put("date",date);
+            parsedData.put("http_method",http_method);
+            parsedData.put("path",path);
+            parsedData.put("http_version",http_version);
+            parsedData.put("status",status);
+            parsedData.put("response_bytes",response_bytes);
+            parsedData.put("user_agent",user_agent);
+        }
+        else
+            throw new IllegalArgumentException();
+
         return parsedData;
     }
 
