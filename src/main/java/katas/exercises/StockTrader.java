@@ -1,5 +1,7 @@
 package katas.exercises;
 
+import java.util.Arrays;
+
 public class StockTrader {
 
     /**
@@ -11,7 +13,30 @@ public class StockTrader {
      * @return the maximum profit, or 0 if no profit can be achieved
      */
     public static int maxProfit(int[] prices) {
-        return 0;
+        int min=0,res=0,i =0;
+        if(prices.length>=2)
+        {
+            min=Arrays.stream(prices).min().getAsInt();
+            for( i =0 ; i<prices.length ; i++)
+            {
+                prices[i]-=min;
+
+            }
+            i=0;
+            while (prices[i] !=0)
+            {
+                i++;
+            }
+            for (;i<prices.length;i++)
+            {
+                if(res<prices[i])
+                    res=prices[i];
+
+            }
+        }
+        else
+            return 0;
+        return res;
     }
 
     public static void main(String[] args) {
