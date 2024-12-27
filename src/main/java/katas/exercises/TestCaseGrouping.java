@@ -1,6 +1,7 @@
 package katas.exercises;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TestCaseGrouping {
@@ -25,8 +26,23 @@ public class TestCaseGrouping {
      * @param testCaseGroupSizes a list of integers, where each integer represents the size of the group for the corresponding test case
      * @return a list of groups, where each group contains the indices of test cases covering the same set of requirements
      */
-    public static List<List<Integer>> groupTestCases(List<Integer> testCaseGroupSizes) {
-        return new ArrayList<>();
+    public static List<List<Integer>> groupTestCases(List<Integer> testCaseGroupSizes)
+    {
+        List<Integer> arr=new ArrayList<>(testCaseGroupSizes);
+        int max=arr.stream().max(Integer::compare).orElseThrow(()->new RuntimeException("list is Empty"));
+        List<List<Integer>> listOfLists = new ArrayList<>(max);
+
+        for (int i = 0; i < max; i++) {
+            listOfLists.add(new ArrayList<>());
+        }
+        for(int i = 0;i<testCaseGroupSizes.size();i++)
+        {
+            listOfLists.get((testCaseGroupSizes.get(i)-1)).add(i);
+
+        }
+
+
+        return listOfLists;
     }
 
     public static void main(String[] args) {
