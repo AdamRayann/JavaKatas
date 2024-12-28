@@ -58,37 +58,35 @@ public class MaxStorageCapacity {
 //        return Math.max(res,subRes);
 //    }
     public static int maxStorageArea(int[] containers) {
-        // Stack to store indices of histogram bars
-        Stack<Integer> stack = new Stack<>();
-        int maxArea = 0; // Variable to store the maximum area
-        int n = containers.length;
+        Stack<Integer> stack= new Stack();
+        int i=0,width,high,maxArea=0;
+        for(i=0;i<containers.length;i++)
+        {
+            while (!stack.isEmpty() && containers[i] < containers[stack.peek()])
+            {
+                high=containers[stack.pop()];
+                if(stack.isEmpty())
+                    width=i;
+                else
+                    width=i-stack.peek()-1;
+                maxArea=Math.max(high*width,maxArea);
 
-        // Traverse the array
-        for (int i = 0; i < n; i++) {
-            // While the current bar is smaller than the bar at stack's top
-            while (!stack.isEmpty() && containers[i] < containers[stack.peek()]) {
-                // Pop the top of the stack
-                int height = containers[stack.pop()];
-                // Width is calculated based on stack's top
-                int width = stack.isEmpty() ? i : i - stack.peek() - 1;
-                // Calculate area and update maxArea
-                maxArea = Math.max(maxArea, height * width);
             }
-            // Push the current index onto the stack
-            stack.push(i);
-        }
-
-        // Process remaining bars in the stack
-        while (!stack.isEmpty()) {
-            int height = containers[stack.pop()];
-            int width = stack.isEmpty() ? n : n - stack.peek() - 1;
-            maxArea = Math.max(maxArea, height * width);
+            stack.push(i);}
+        while (!stack.isEmpty() )
+        {
+            high=containers[stack.pop()];
+            if(stack.isEmpty())
+                width=i;
+            else
+                width=i-stack.peek()-1;
+            maxArea=Math.max(high*width,maxArea);
         }
 
         return maxArea;
     }
     public static void main(String[] args) {
-        int[] containers = {2, 1, 6, 6, 2, 2};
+        int[] containers = {2, 1, 5, 6, 2, 2};
 
         int result = maxStorageArea(containers);
         System.out.println("Max storage area: " + result); // Expected output: 10
