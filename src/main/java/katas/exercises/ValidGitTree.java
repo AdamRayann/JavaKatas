@@ -1,5 +1,6 @@
 package katas.exercises;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,22 @@ public class ValidGitTree {
      * @param treeMap a map representing the Git tree (commit ID to list of child commit IDs)
      * @return true if the tree is a valid Git tree, false otherwise
      */
-    public static boolean isValidGitTree(Map<String, List<String>> treeMap) {
-        return false;
+    public static boolean isValidGitTree(Map<String, List<String>> treeMap)
+    {
+        if(treeMap==null)
+            return true;
+        for(String key : treeMap.keySet() )
+        {
+            for (String s : treeMap.get(key))
+            {
+                if(key.compareTo(s) > 0)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
