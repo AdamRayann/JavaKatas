@@ -1,6 +1,7 @@
 package katas.exercises;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RoundRobinLoadBalancer {
@@ -23,6 +24,8 @@ public class RoundRobinLoadBalancer {
      * Constructor to initialize the load balancer.
      */
     public RoundRobinLoadBalancer() {
+        this.servers = new ArrayList<>();
+        this.currentIndex = 0;
 
     }
 
@@ -32,6 +35,8 @@ public class RoundRobinLoadBalancer {
      * @param server the IP object representing the server to add
      */
     public void addServer(IP server) {
+        servers.add(server);
+        currentIndex+= 1;
 
     }
 
@@ -41,7 +46,7 @@ public class RoundRobinLoadBalancer {
      * @param server the IP object representing the server to remove
      */
     public void removeServer(IP server) {
-
+        servers.remove(server);
     }
 
     /**
@@ -50,7 +55,7 @@ public class RoundRobinLoadBalancer {
      * @return the IP object of the server handling the request
      */
     public IP routeRequest() {
-
+        return servers.get((currentIndex++)%servers.size());
     }
 
     public static void main(String[] args) {
@@ -74,7 +79,7 @@ public class RoundRobinLoadBalancer {
     /**
      * Represents an IP address.
      */
-    class IP {
+    static class IP {
         private final String address;
 
         /**
@@ -86,6 +91,7 @@ public class RoundRobinLoadBalancer {
             if (!isValidIP(address)) {
                 throw new IllegalArgumentException("Invalid IP address: " + address);
             }
+            this.address= address;
         }
 
         /**
@@ -95,7 +101,17 @@ public class RoundRobinLoadBalancer {
          * @return true if the address is valid, false otherwise
          */
         private static boolean isValidIP(String address) {
-
+            String[] s = address.split("\\.");
+            if(s.length !=4)
+                return false;
+            int temp;
+            for(String num : s)
+            {
+                temp = Integer.parseInt(num);
+                if(temp >255  || temp <0)
+                    return false;
+            }
+            return true;
         }
 
         @Override
@@ -114,6 +130,7 @@ public class RoundRobinLoadBalancer {
         @Override
         public int hashCode() {
 
+            return 0;
         }
     }
 
