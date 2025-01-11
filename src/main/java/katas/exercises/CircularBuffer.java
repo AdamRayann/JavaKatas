@@ -20,6 +20,10 @@ public class CircularBuffer {
      * @param capacity the maximum number of elements the buffer can hold
      */
     public CircularBuffer(int capacity) {
+        buffer=new int[capacity];
+        this.head=0;
+        this.tail=0;
+        this.size=0;
 
     }
 
@@ -29,7 +33,14 @@ public class CircularBuffer {
      * @param val the value to add
      */
     public void add(int val) {
+        if (size == buffer.length) {
+            head = (head + 1) % buffer.length;
+        } else {
+            size++;
+        }
 
+        buffer[tail] = val;
+        tail = (tail + 1) % buffer.length;
     }
 
     /**
@@ -38,8 +49,14 @@ public class CircularBuffer {
      * @return the oldest element, or -1 if the buffer is empty
      */
     public int get() {
+        if (isEmpty()) {
+            return -1;
+        }
 
-        return -1;
+        int value = buffer[head];
+        head = (head + 1) % buffer.length;
+        size--;
+        return value;
     }
 
     /**
@@ -49,7 +66,7 @@ public class CircularBuffer {
      */
     public boolean isFull() {
 
-        return false;
+        return size==buffer.length;
     }
 
     /**
@@ -59,7 +76,7 @@ public class CircularBuffer {
      */
     public boolean isEmpty() {
 
-        return false;
+        return size==0;
     }
 
     public static void main(String[] args) {
