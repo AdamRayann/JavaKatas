@@ -1,9 +1,13 @@
 package katas.exercises;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.Duration;
 import java.time.Instant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,11 +41,48 @@ public class GitHubRepoActivityIntensity {
      */
     public static List<Instant> fetchCommitTimestamps(String owner, String repo) throws Exception {
         // example:
-        URL url = new URL("...");
+        URL url = new URL(GITHUB_API_BASE_URL + "/" + owner+"/" + repo + "/commits");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Accept", "application/vnd.github+json");
+        int responseCode = conn.getResponseCode();
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new RuntimeException("Failed to fetch commits: HTTP error code " + responseCode);
+        }
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String inputLine;
+        StringBuilder response = new StringBuilder();
+        while ((inputLine = in.readLine()) != null ) {
+
+            response.append(inputLine);
+
+        }
+        in.close();
+        String jsonResponse = response.toString();
+        //System.out.println(jsonResponse);
+
+        return extractDatesFromJson(jsonResponse);
     }
+
+    private static List<Instant> extractDatesFromJson(String jsonResponse) {
+        List<Instant> timestamps = new ArrayList<>();
+        String key = "\"date\":\"";
+
+        int index = jsonResponse.indexOf(key);
+        while (index != -1) {
+            int start = index + key.length();
+            int end = jsonResponse.indexOf("\"", start);
+            if (end != -1) {
+                String date = jsonResponse.substring(start, end);
+                System.out.println(date);
+                timestamps.add(Instant.parse(date));
+            }
+            index = jsonResponse.indexOf(key, end);
+        }
+
+        return timestamps;
+    }
+
 
     /**
      * Calculates the average time between consecutive commits.
@@ -50,7 +91,22 @@ public class GitHubRepoActivityIntensity {
      * @return the average time in hours
      */
     public static double calculateAverageTimeBetweenCommits(List<Instant> timestamps) {
+        int avg=0,cnt = 1;
+        Instant prevDate=null;
+        if (timestamps.size()<2)
+            return 0;
+        for(Instant i : timestamps)
+        {
+            if(prevDate!=null)
+            {
+                avg+= Duration.between(prevDate,i).toHoursPart();
+                cnt++;
+            }
+              prevDate=i;
 
+        }
+
+        return (double) avg/cnt;
     }
 
     public static void main(String[] args) {
