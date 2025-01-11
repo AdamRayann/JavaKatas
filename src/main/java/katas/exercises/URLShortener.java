@@ -1,5 +1,6 @@
 package katas.exercises;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,8 +33,22 @@ public class URLShortener {
      * @return the shortened URL
      */
     public String shorten(String longUrl) {
-        // Implement logic to shorten the URL
-        return null;
+
+        String BASE62_CHARS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+        StringBuilder sb = new StringBuilder();
+        int hashed = Math.abs(Arrays.hashCode(longUrl.toCharArray()));
+
+        while (hashed > 0) {
+            int remainder = hashed % 62;
+            sb.append(BASE62_CHARS.charAt(remainder));
+            hashed /= 62;
+        }
+        String shortUrl = BASE_URL + sb.reverse();
+
+        urlMap.put(shortUrl, longUrl);
+
+        return shortUrl;
+
     }
 
     /**
