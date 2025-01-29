@@ -74,7 +74,11 @@ public class ETLTask {
                         "email TEXT NOT NULL, " +
                         "age_group TEXT, " +
                         "years_registered INTEGER)");
+
+                // Clear the table to avoid duplicate primary keys
+                targetStmt.execute("DELETE FROM transformed_users");
             }
+
 
             // Extract data from source database
             ResultSet rs = sourceStmt.executeQuery("SELECT * FROM users");
